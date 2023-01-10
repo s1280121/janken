@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+
 class AnswerPage extends StatefulWidget {
   AnswerPage({Key? key}) : super(key: key);
   @override
@@ -94,11 +95,19 @@ class _AnswerPageState extends State<AnswerPage> {
         appBar: AppBar(
           title: Text("じゃんけんページ"),
         ),
-        body: Center(
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/mori.jpg'),
+                fit: BoxFit.cover,
+              )
+          ),
+          child: Center(
             child: Column(
-              children: notAnswerWidget()
+                children: notAnswerWidget()
             ),
-        )// This trailing comma makes auto-formatting nicer for build methods.
+          ),
+        ),
     );
   }
 
@@ -110,55 +119,60 @@ class _AnswerPageState extends State<AnswerPage> {
             Text('$win / $total', style: TextStyle(fontSize: 50),),          ]
       ),
       Text("敵の手は $_answer"),
-      if (_answer == "") Image.asset('images/kogepan.png', height: 200),
-      if (_answer == "グー") AnimatedCrossFade(
-        firstChild: Image.asset('images/gu.png', height: 200),
-        secondChild: Image.asset('images/kogepan.png', height: 200),
-        duration: Duration(seconds: 1),
-        crossFadeState: showFirst ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-      ),
-      if (_answer == "チョキ") Image.asset('images/choki.png', height: 200),
-      if (_answer == "パー") Image.asset('images/pa.png', height: 200),
+      if (_answer == "") Image.asset('images/dora.PNG', height: 400),
+      if (_answer == "グー") Image.asset('images/dora_gu.PNG', height: 400),
+      if (_answer == "チョキ") Image.asset('images/dora_choki.PNG', height: 400),
+      if (_answer == "パー") Image.asset('images/dora_pa.PNG', height: 400),
       Text(_answer2),
-      SizedBox(height: 50),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          RaisedButton(
-            shape: CircleBorder(),
-            onPressed: _guAnswer,
-            child: ClipOval(
-                child: Image(
-                  width: 100,
-                  image: AssetImage('images/gu.png'),
-                  fit: BoxFit.contain,
-                )
+      // SizedBox(height: 50),
+      Spacer(),
+      Container(
+        height: 130,
+        color: Colors.grey,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment:CrossAxisAlignment.end,
+          children: <Widget>[
+            RaisedButton(
+              shape: CircleBorder(),
+              onPressed: _guAnswer,
+              child: ClipOval(
+                  child: Image(
+                    width: 100,
+                    image: AssetImage('images/gu.png'),
+                    fit: BoxFit.contain,
+                  )
+              ),
             ),
-          ),
-          RaisedButton(
-            shape: CircleBorder(),
-            onPressed: _chokiAnswer,
-            child: ClipOval(
-                child: Image(
-                  width: 80,
-                  image: AssetImage('images/choki.png'),
-                  fit: BoxFit.contain,
-                )
+            RaisedButton(
+              shape: CircleBorder(),
+              onPressed: _chokiAnswer,
+              child: ClipOval(
+                  child: Image(
+                    width: 80,
+                    image: AssetImage('images/choki.png'),
+                    fit: BoxFit.contain,
+                  )
+              ),
             ),
-          ),
-          RaisedButton(
-            shape: CircleBorder(),
-            onPressed: _paAnswer,
-            child: ClipOval(
-                child: Image(
-                  width: 70,
-                  image: AssetImage('images/pa.png'),
-                  fit: BoxFit.contain,
-                )
+            RaisedButton(
+              shape: CircleBorder(),
+              onPressed: _paAnswer,
+              child: ClipOval(
+                  child: Image(
+                    width: 70,
+                    image: AssetImage('images/pa.png'),
+                    fit: BoxFit.contain,
+                  )
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+    Container(
+      height: 20,
+      color: Colors.grey,
+    ),
     ];
   }
 }

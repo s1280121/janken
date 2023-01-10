@@ -42,8 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('images/kogepan.png', height: 200),
-            Text('こげぱんと\nじゃんけんして\n勝てると思っているのか？'),
+            Image.asset('images/dora.PNG', height: 400),
+            Text('ことえもんに\n勝てると思っているの？'),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.orange,

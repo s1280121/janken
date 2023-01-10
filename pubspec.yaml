@@ -62,6 +62,11 @@ flutter:
     - images/choki.png
     - images/gu.png
     - images/pa.png
+    - images/dora_choki.PNG
+    - images/dora_gu.PNG
+    - images/dora_pa.PNG
+    - images/dora.PNG
+    - images/mori.jpg
     - images/kogepan.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

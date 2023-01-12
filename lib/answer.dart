@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:google_fonts/google_fonts.dart';
+import 'package:janken/winPage.dart';
+
 
 class AnswerPage extends StatefulWidget {
-  AnswerPage({Key? key}) : super(key: key);
+  AnswerPage({Key? key, required this.title}) : super(key: key);
+  String title;
+
   @override
   _AnswerPageState createState() => _AnswerPageState();
 }
@@ -15,6 +20,9 @@ class _AnswerPageState extends State<AnswerPage> {
   int total = 0;
   int win = 0;
   String startNext = "START!!";
+  String enemyName = "";
+  var normalImage, guImage, chokiImage,paImage =  null;
+
 
 
   void _guAnswer() {
@@ -23,25 +31,19 @@ class _AnswerPageState extends State<AnswerPage> {
       var rand = math.Random();
       if (rand.nextInt(3) == 1) {
         _answer = "敵の手はチョキ";
-        _answer2 = "であなたの勝ちです";
+        _answer2 = "あなたの勝ちです";
         win++;
         total++;
       } else if (rand.nextInt(3) == 1) {
         _answer = "敵の手はグー";
-        _answer2 = "あいこ";
+        _answer2 = "あいこ、もう一回！";
       }else {
         _answer = "敵の手はパー";
-        _answer2 = "であなたの負けです";
+        _answer2 = "あなたの負けです";
         total++;
       }
     });
-    if(total == 10){
-      if(win >= 5){
-      }
-      else{
-      }
-    }
-    else {notAnswerWidget();}
+    uiWidget();
   }
 
   void _chokiAnswer() {
@@ -50,21 +52,19 @@ class _AnswerPageState extends State<AnswerPage> {
       var rand = math.Random();
       if (rand.nextInt(3) == 0) {
         _answer = "敵の手はパー";
-        _answer2 = "であなたの勝ちです";
+        _answer2 = "あなたの勝ちです";
         win++;
         total++;
       } else if (rand.nextInt(3) == 1) {
         _answer = "敵の手はチョキ";
-        _answer2 = "あいこ";
+        _answer2 = "あいこ、もう一回！";
       } else {
         _answer = "敵の手はグー";
-        _answer2 = "であなたの負けです";
+        _answer2 = "あなたの負けです";
         total++;
       }
     });
-    if(total == 10){
-    }
-    else { notAnswerWidget();}
+    uiWidget();
   }
 
   void _paAnswer() {
@@ -73,21 +73,19 @@ class _AnswerPageState extends State<AnswerPage> {
       var rand = math.Random();
       if (rand.nextInt(3) == 1) {
         _answer = "敵の手はグー";
-        _answer2 = "であなたの勝ちです";
+        _answer2 = "あなたの勝ちです";
         win++;
         total++;
       } else if (rand.nextInt(3) == 1) {
         _answer = "敵の手はパー";
-        _answer2 = "あいこ";
+        _answer2 = "あいこ、もう一回！";
       }else {
         _answer = "敵の手はチョキ";
-        _answer2 = "であなたの負けです";
+        _answer2 = "あなたの負けです";
         total++;
       }
     });
-    if(total == 10){
-    }
-    else {notAnswerWidget();}
+    uiWidget();
   }
 
   void _next() {
@@ -96,9 +94,19 @@ class _AnswerPageState extends State<AnswerPage> {
       startNext = "NEXT!!";
     });
     _answer = "";
-    if(_answer2 == "あいこ") _answer2 = "あいこで・・・";
+    if(_answer2 == "あいこ、もう一回！") _answer2 = "あいこで・・・";
     else _answer2 = "最初はグー、じゃんけん・・・";
-    notAnswerWidget();
+    if(total == 10){
+      if(win >= 3){
+        // String A = win as String;
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => WinPage(title: 'dora', winN: win,)),
+        );
+      }
+      else{
+      }
+    }
+    else {uiWidget();}
   }
 
   @override
@@ -116,14 +124,24 @@ class _AnswerPageState extends State<AnswerPage> {
           ),
           child: Center(
             child: Column(
-                children: notAnswerWidget()
+                children: uiWidget()
             ),
           ),
         ),
     );
   }
 
-  List<Widget> notAnswerWidget() {
+  List<Widget> uiWidget() {
+    Widget ifEnemy() {
+      if (widget.title == "dora") {
+        enemyName = "VS　ドラ";
+        normalImage = Image.asset('images/dora.PNG', height: 400);
+        guImage = Image.asset('images/dora_gu.PNG', height: 400);
+        chokiImage = Image.asset('images/dora_choki.PNG', height: 400);
+        paImage = Image.asset('images/dora_pa.PNG', height: 400);
+      };
+      return Text(enemyName, style: TextStyle(fontSize: 40, color: Colors.white),);
+    };
     return <Widget>[
       Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -131,11 +149,16 @@ class _AnswerPageState extends State<AnswerPage> {
             Text('$win / $total', style: TextStyle(fontSize: 50, color: Colors.white),),
           ]
       ),
-      Text("$_answer", style: TextStyle(fontSize: 30, color: Colors.white),),
-      if (_answer == "") Image.asset('images/dora.PNG', height: 400),
-      if (_answer == "敵の手はグー") Image.asset('images/dora_gu.PNG', height: 400),
-      if (_answer == "敵の手はチョキ") Image.asset('images/dora_choki.PNG', height: 400),
-      if (_answer == "敵の手はパー") Image.asset('images/dora_pa.PNG', height: 400),
+      ifEnemy(),
+      if (_answer == "") normalImage,
+      if (_answer == "敵の手はグー") guImage,
+      if (_answer == "敵の手はチョキ") chokiImage,
+      if (_answer == "敵の手はパー") paImage,
+      Text("$_answer", style: GoogleFonts.reggaeOne(
+        textStyle: Theme.of(context).textTheme.headline4,
+        color: Colors.white,
+        fontSize: 30,
+      ),),
       Text(_answer2, style: TextStyle(fontSize: 20, color: Colors.white),),
       Spacer(),
       if(_visible == false)

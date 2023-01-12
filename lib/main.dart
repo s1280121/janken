@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'answer.dart';
 
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.yuseiMagicTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       home: MyHomePage(title: 'Flutter じゃんけん！'),
     );
@@ -53,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => AnswerPage(),
+                    builder: (BuildContext context) => AnswerPage(title: 'dora',),
                   ),
                 );
               },

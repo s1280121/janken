@@ -11,29 +11,28 @@ class AnswerPage extends StatefulWidget {
 class _AnswerPageState extends State<AnswerPage> {
   String _answer = "";
   String _answer2 = "";
-  bool showFirst = true;
+  bool _visible = false;
   int total = 0;
   int win = 0;
+  String startNext = "START!!";
 
 
   void _guAnswer() {
     setState(() {
+      _visible = !_visible;
       var rand = math.Random();
       if (rand.nextInt(3) == 1) {
-        _answer = "チョキ";
+        _answer = "敵の手はチョキ";
         _answer2 = "であなたの勝ちです";
         win++;
         total++;
-        showFirst = !showFirst;
       } else if (rand.nextInt(3) == 1) {
-        _answer = "グー";
-        _answer2 = "あいこで・・・";
-        showFirst = !showFirst;
+        _answer = "敵の手はグー";
+        _answer2 = "あいこ";
       }else {
-        _answer = "パー";
+        _answer = "敵の手はパー";
         _answer2 = "であなたの負けです";
         total++;
-        showFirst = !showFirst;
       }
     });
     if(total == 10){
@@ -47,17 +46,18 @@ class _AnswerPageState extends State<AnswerPage> {
 
   void _chokiAnswer() {
     setState(() {
+      _visible = !_visible;
       var rand = math.Random();
       if (rand.nextInt(3) == 0) {
-        _answer = "パー";
+        _answer = "敵の手はパー";
         _answer2 = "であなたの勝ちです";
         win++;
         total++;
       } else if (rand.nextInt(3) == 1) {
-        _answer = "チョキ";
-        _answer2 = "あいこで・・・";
+        _answer = "敵の手はチョキ";
+        _answer2 = "あいこ";
       } else {
-        _answer = "グー";
+        _answer = "敵の手はグー";
         _answer2 = "であなたの負けです";
         total++;
       }
@@ -69,17 +69,18 @@ class _AnswerPageState extends State<AnswerPage> {
 
   void _paAnswer() {
     setState(() {
+      _visible = !_visible;
       var rand = math.Random();
       if (rand.nextInt(3) == 1) {
-        _answer = "グー";
+        _answer = "敵の手はグー";
         _answer2 = "であなたの勝ちです";
         win++;
         total++;
       } else if (rand.nextInt(3) == 1) {
-        _answer = "パー";
-        _answer2 = "あいこで・・・";
+        _answer = "敵の手はパー";
+        _answer2 = "あいこ";
       }else {
-        _answer = "チョキ";
+        _answer = "敵の手はチョキ";
         _answer2 = "であなたの負けです";
         total++;
       }
@@ -87,6 +88,17 @@ class _AnswerPageState extends State<AnswerPage> {
     if(total == 10){
     }
     else {notAnswerWidget();}
+  }
+
+  void _next() {
+    setState(() {
+      _visible = !_visible;
+      startNext = "NEXT!!";
+    });
+    _answer = "";
+    if(_answer2 == "あいこ") _answer2 = "あいこで・・・";
+    else _answer2 = "最初はグー、じゃんけん・・・";
+    notAnswerWidget();
   }
 
   @override
@@ -116,63 +128,77 @@ class _AnswerPageState extends State<AnswerPage> {
       Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text('$win / $total', style: TextStyle(fontSize: 50),),          ]
+            Text('$win / $total', style: TextStyle(fontSize: 50, color: Colors.white),),
+          ]
       ),
-      Text("敵の手は $_answer"),
+      Text("$_answer", style: TextStyle(fontSize: 30, color: Colors.white),),
       if (_answer == "") Image.asset('images/dora.PNG', height: 400),
-      if (_answer == "グー") Image.asset('images/dora_gu.PNG', height: 400),
-      if (_answer == "チョキ") Image.asset('images/dora_choki.PNG', height: 400),
-      if (_answer == "パー") Image.asset('images/dora_pa.PNG', height: 400),
-      Text(_answer2),
-      // SizedBox(height: 50),
+      if (_answer == "敵の手はグー") Image.asset('images/dora_gu.PNG', height: 400),
+      if (_answer == "敵の手はチョキ") Image.asset('images/dora_choki.PNG', height: 400),
+      if (_answer == "敵の手はパー") Image.asset('images/dora_pa.PNG', height: 400),
+      Text(_answer2, style: TextStyle(fontSize: 20, color: Colors.white),),
       Spacer(),
+      if(_visible == false)
+        Visibility(
+          visible: !_visible,
+          child: GestureDetector(
+            onTap: () {
+              _next();
+            },
+            child: Container(
+              height: 150,
+              width: double.infinity,
+              color: Colors.grey,
+              child: Center(child: Text(startNext, style: TextStyle(fontSize: 40),)),
+            ),
+          ),
+        ),
+      if(_visible == true)
       Container(
-        height: 130,
+        height: 150,
         color: Colors.grey,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment:CrossAxisAlignment.end,
-          children: <Widget>[
-            RaisedButton(
-              shape: CircleBorder(),
-              onPressed: _guAnswer,
-              child: ClipOval(
-                  child: Image(
-                    width: 100,
-                    image: AssetImage('images/gu.png'),
-                    fit: BoxFit.contain,
-                  )
+        child: Visibility(
+          visible: _visible,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              RaisedButton(
+                shape: CircleBorder(),
+                onPressed: _guAnswer,
+                child: ClipOval(
+                    child: Image(
+                      width: 100,
+                      image: AssetImage('images/gu.png'),
+                      fit: BoxFit.contain,
+                    )
+                ),
               ),
-            ),
-            RaisedButton(
-              shape: CircleBorder(),
-              onPressed: _chokiAnswer,
-              child: ClipOval(
-                  child: Image(
-                    width: 80,
-                    image: AssetImage('images/choki.png'),
-                    fit: BoxFit.contain,
-                  )
+              RaisedButton(
+                shape: CircleBorder(),
+                onPressed: _chokiAnswer,
+                child: ClipOval(
+                    child: Image(
+                      width: 80,
+                      image: AssetImage('images/choki.png'),
+                      fit: BoxFit.contain,
+                    )
+                ),
               ),
-            ),
-            RaisedButton(
-              shape: CircleBorder(),
-              onPressed: _paAnswer,
-              child: ClipOval(
-                  child: Image(
-                    width: 70,
-                    image: AssetImage('images/pa.png'),
-                    fit: BoxFit.contain,
-                  )
+              RaisedButton(
+                shape: CircleBorder(),
+                onPressed: _paAnswer,
+                child: ClipOval(
+                    child: Image(
+                      width: 70,
+                      image: AssetImage('images/pa.png'),
+                      fit: BoxFit.contain,
+                    )
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    Container(
-      height: 20,
-      color: Colors.grey,
-    ),
     ];
   }
 }

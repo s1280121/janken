@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:janken/answer.dart';
+import 'package:janken/game_one/answer.dart';
+import 'package:janken/game_one/home.dart';
 
 class WinPage extends StatefulWidget {
   var title;
@@ -46,8 +47,7 @@ class _WinPageState extends State<WinPage> {
         enemyName = "VS　ドラ";
         winImage = Image.asset('images/dora.PNG', height: 400);
       };
-      return Text(
-        enemyName, style: TextStyle(fontSize: 40, color: Colors.white),);
+      return Text(enemyName, style: TextStyle(fontSize: 40, color: Colors.white),);
     };
     return <Widget>[
       ifEnemy(),
@@ -57,6 +57,26 @@ class _WinPageState extends State<WinPage> {
         fontSize: 30,
       ),),
       winImage,
+      Text('勝利！！\nお見事！！！', style: TextStyle(fontSize: 40, color: Colors.white),),
+      SizedBox(
+        width: 150,
+        height: 40,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.orange,
+            onPrimary: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => OneMainPage(newrecord: widget.winN),
+              ),
+            );
+          },
+          child: const Text('ホームへ戻る'),
+        ),
+      ),
       Spacer(),
       SizedBox(
         width: double.infinity,

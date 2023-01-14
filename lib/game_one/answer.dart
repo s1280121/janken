@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:janken/winPage.dart';
+import 'package:janken/game_one/winPage.dart';
 
 
 class AnswerPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class AnswerPage extends StatefulWidget {
 }
 
 class _AnswerPageState extends State<AnswerPage> {
-  String _answer = "";
+  String _answer = "ウフフ・・僕に勝てるかな";
   String _answer2 = "";
   bool _visible = false;
   int total = 0;
@@ -150,7 +150,7 @@ class _AnswerPageState extends State<AnswerPage> {
           ]
       ),
       ifEnemy(),
-      if (_answer == "") normalImage,
+      if (_answer == "ウフフ・・僕に勝てるかな" || _answer == "") normalImage,
       if (_answer == "敵の手はグー") guImage,
       if (_answer == "敵の手はチョキ") chokiImage,
       if (_answer == "敵の手はパー") paImage,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:janken/game_one/home.dart';
 
-import 'answer.dart';
+import 'game_one/answer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +37,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  int record = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('images/dora.PNG', height: 400),
-            Text('ことえもんに\n勝てると思っているの？'),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.orange,
@@ -57,11 +58,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => AnswerPage(title: 'dora',),
+                    builder: (BuildContext context) => OneMainPage(newrecord: record),
                   ),
                 );
               },
-              child: const Text('じゃんけんする'),
+              child: const Text('ゲーム１へ'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.orange,
+                onPrimary: Colors.white,
+              ),
+              onPressed: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) => OneMainPage(newrecord: record),
+                //   ),
+                // );
+              },
+              child: const Text('ゲーム２へ'),
             ),
           ],
         ),

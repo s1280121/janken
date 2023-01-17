@@ -89,22 +89,18 @@ class _AnswerPageState extends State<AnswerPage> {
   }
 
   void _next() {
+    if(total != 10 || total != 0) startNext = "NEXT!!";
+    if(total == 9 && _answer2 != "あいこ、もう一回！") startNext = "RESULT!!";
     setState(() {
       _visible = !_visible;
-      startNext = "NEXT!!";
     });
     _answer = "";
     if(_answer2 == "あいこ、もう一回！") _answer2 = "あいこで・・・";
     else _answer2 = "最初はグー、じゃんけん・・・";
     if(total == 10){
-      if(win >= 3){
-        // String A = win as String;
         Navigator.push(context,
-          MaterialPageRoute(builder: (context) => WinPage(title: 'dora', winN: win,)),
+          MaterialPageRoute(builder: (context) => WinPage(winN: win)),
         );
-      }
-      else{
-      }
     }
     else {uiWidget();}
   }
@@ -113,7 +109,8 @@ class _AnswerPageState extends State<AnswerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("じゃんけんページ"),
+          automaticallyImplyLeading: false,
+          title: Text("100連じゃんけん"),
         ),
         body: Container(
           decoration: const BoxDecoration(
@@ -122,12 +119,11 @@ class _AnswerPageState extends State<AnswerPage> {
                 fit: BoxFit.cover,
               )
           ),
-          child: Center(
-            child: Column(
+          child: Column(
                 children: uiWidget()
             ),
           ),
-        ),
+
     );
   }
 
@@ -135,10 +131,10 @@ class _AnswerPageState extends State<AnswerPage> {
     Widget ifEnemy() {
       if (widget.title == "dora") {
         enemyName = "VS　ドラ";
-        normalImage = Image.asset('images/dora.PNG', height: 400);
-        guImage = Image.asset('images/dora_gu.PNG', height: 400);
-        chokiImage = Image.asset('images/dora_choki.PNG', height: 400);
-        paImage = Image.asset('images/dora_pa.PNG', height: 400);
+        normalImage = Image.asset('images/dora.PNG', height: 250);
+        guImage = Image.asset('images/dora_gu.PNG', height: 250);
+        chokiImage = Image.asset('images/dora_choki.PNG', height: 250);
+        paImage = Image.asset('images/dora_pa.PNG', height: 250);
       };
       return Text(enemyName, style: TextStyle(fontSize: 40, color: Colors.white),);
     };
@@ -162,6 +158,7 @@ class _AnswerPageState extends State<AnswerPage> {
       Text(_answer2, style: TextStyle(fontSize: 20, color: Colors.white),),
       Spacer(),
       if(_visible == false)
+        if(startNext == 'NEXT!!')
         Visibility(
           visible: !_visible,
           child: GestureDetector(
@@ -171,11 +168,27 @@ class _AnswerPageState extends State<AnswerPage> {
             child: Container(
               height: 150,
               width: double.infinity,
-              color: Colors.grey,
+              color: Colors.white,
               child: Center(child: Text(startNext, style: TextStyle(fontSize: 40),)),
             ),
           ),
         ),
+      if(_visible == false)
+        if(startNext == 'START!!' || startNext == 'RESULT!!')
+          Visibility(
+            visible: !_visible,
+            child: GestureDetector(
+              onTap: () {
+                _next();
+              },
+              child: Container(
+                height: 150,
+                width: double.infinity,
+                color: Colors.orange,
+                child: Center(child: Text(startNext, style: TextStyle(fontSize: 40),)),
+              ),
+            ),
+          ),
       if(_visible == true)
       Container(
         height: 150,

@@ -10,26 +10,40 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
+  final MaterialColor materialWhite = const MaterialColor(
+    0xFFFFFFFF,
+    const <int, Color>{
+      50: const Color(0xFFFFFFFF),
+      100: const Color(0xFFFFFFFF),
+      200: const Color(0xFFFFFFFF),
+      300: const Color(0xFFFFFFFF),
+      400: const Color(0xFFFFFFFF),
+      500: const Color(0xFFFFFFFF),
+      600: const Color(0xFFFFFFFF),
+      700: const Color(0xFFFFFFFF),
+      800: const Color(0xFFFFFFFF),
+      900: const Color(0xFFFFFFFF),
+    },
+  );
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: materialWhite,
         textTheme: GoogleFonts.yuseiMagicTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
-      home: MyHomePage(title: 'Flutter じゃんけん！'),
+      darkTheme: ThemeData.dark(),
+      home: MyHomePage(),
     );
   }
+
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -37,51 +51,63 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  int record = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.orange,
-                onPrimary: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => OneMainPage(newrecord: record),
+            SizedBox(height: 100),
+            Text('じゃんけんアプリ', style: TextStyle(fontSize: 50),),
+            SizedBox(height: 100),
+            MaterialButton(
+              child: Text('100連\nじゃんけん', style: TextStyle(fontSize: 30),),
+              padding: EdgeInsets.all(30),//パディング
+              color: Colors.blue, //背景色
+              textColor: Colors.white, //アイコンの色
+              shape: CircleBorder(),//丸
+              onPressed:() {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (BuildContext context) => OneMainPage(),
                   ),
                 );
               },
-              child: const Text('ゲーム１へ'),
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.orange,
-                onPrimary: Colors.white,
-              ),
-              onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (BuildContext context) => OneMainPage(newrecord: record),
-                //   ),
-                // );
-              },
-              child: const Text('ゲーム２へ'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MaterialButton(
+                  child: Text('指令\nじゃんけん', style: TextStyle(fontSize: 30),),
+                  padding: EdgeInsets.all(30),//パディング
+                  color: Colors.blue, //背景色
+                  textColor: Colors.white, //アイコンの色
+                  shape: CircleBorder(),//丸
+                  onPressed:() {
+                    // Navigator.push(context, MaterialPageRoute(
+                    //   builder: (BuildContext context) => OneMainPage(),
+                    // ),
+                    // );
+                  },
+                ),
+                MaterialButton(
+                  child: Text('グリコ', style: TextStyle(fontSize: 30),),
+                  padding: EdgeInsets.all(53),//パディング
+                  color: Colors.blue, //背景色
+                  textColor: Colors.white, //アイコンの色
+                  shape: CircleBorder(),//丸
+                  onPressed:() {
+                    // Navigator.push(context, MaterialPageRoute(
+                    //   builder: (BuildContext context) => OneMainPage(),
+                    // ),
+                    // );
+                  },
+                ),
+              ],
             ),
           ],
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

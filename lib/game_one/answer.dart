@@ -34,6 +34,7 @@ class _AnswerPageState extends State<AnswerPage> {
         _answer2 = "あなたの勝ちです";
         win++;
         total++;
+        if(total == 10) startNext = "RESULT!!";
       } else if (rand.nextInt(3) == 1) {
         _answer = "敵の手はグー";
         _answer2 = "あいこ、もう一回！";
@@ -41,6 +42,7 @@ class _AnswerPageState extends State<AnswerPage> {
         _answer = "敵の手はパー";
         _answer2 = "あなたの負けです";
         total++;
+        if(total == 10) startNext = "RESULT!!";
       }
     });
     uiWidget();
@@ -55,6 +57,7 @@ class _AnswerPageState extends State<AnswerPage> {
         _answer2 = "あなたの勝ちです";
         win++;
         total++;
+        if(total == 10) startNext = "RESULT!!";
       } else if (rand.nextInt(3) == 1) {
         _answer = "敵の手はチョキ";
         _answer2 = "あいこ、もう一回！";
@@ -62,6 +65,7 @@ class _AnswerPageState extends State<AnswerPage> {
         _answer = "敵の手はグー";
         _answer2 = "あなたの負けです";
         total++;
+        if(total == 10) startNext = "RESULT!!";
       }
     });
     uiWidget();
@@ -76,6 +80,7 @@ class _AnswerPageState extends State<AnswerPage> {
         _answer2 = "あなたの勝ちです";
         win++;
         total++;
+        if(total == 10) startNext = "RESULT!!";
       } else if (rand.nextInt(3) == 1) {
         _answer = "敵の手はパー";
         _answer2 = "あいこ、もう一回！";
@@ -83,6 +88,7 @@ class _AnswerPageState extends State<AnswerPage> {
         _answer = "敵の手はチョキ";
         _answer2 = "あなたの負けです";
         total++;
+        if(total == 10) startNext = "RESULT!!";
       }
     });
     uiWidget();
@@ -90,7 +96,6 @@ class _AnswerPageState extends State<AnswerPage> {
 
   void _next() {
     if(total != 10 || total != 0) startNext = "NEXT!!";
-    if(total == 9 && _answer2 != "あいこ、もう一回！") startNext = "RESULT!!";
     setState(() {
       _visible = !_visible;
     });

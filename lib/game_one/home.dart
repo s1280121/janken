@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:janken/game_one/winPage.dart';
-
+import 'package:janken/game_one/result.dart';
+import 'package:janken/main.dart';
+import 'package:page_transition/page_transition.dart';
 import 'answer.dart';
-import 'backbutton.dart';
+
+import '../common/appbar.dart';
+import '../common/backbutton.dart';
 
 class OneMainPage extends StatefulWidget {
   OneMainPage({Key? key}) : super(key: key);
-
 
   @override
   _OneMainPageState createState() => _OneMainPageState();
 }
 
 class _OneMainPageState extends State<OneMainPage> {
-
   int N = -1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: CommonAppBar(
         title: Text('100連じゃんけん'),
-        automaticallyImplyLeading: false, // 自動で生成される戻るボタンを無効化
-        leading: OneMainPageBackButton(),
+        pop: CustomBackButton(screen: MyApp(),), appBar: AppBar(),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -47,10 +47,11 @@ class _OneMainPageState extends State<OneMainPage> {
                       onPrimary: Colors.white,
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => WinPage(winN: N),
+                      Navigator.push(context,
+                        PageTransition(
+                          child: ResultPage(winN: N), //画面遷移先
+                          type: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 300),//アニメーションの時間
                         ),
                       );
                     },
@@ -75,8 +76,11 @@ class _OneMainPageState extends State<OneMainPage> {
                   borderRadius: BorderRadius.circular(60),
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (BuildContext context) => AnswerPage(title: 'dora',),
+                  Navigator.push(context,
+                    PageTransition(
+                      child: AnswerPage(title: 'dora'), //画面遷移先
+                      type: PageTransitionType.fade,
+                      duration: Duration(milliseconds: 300),//アニメーションの時間
                     ),
                   );
                 },

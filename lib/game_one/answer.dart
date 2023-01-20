@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:janken/game_one/winPage.dart';
+import 'package:janken/game_one/home.dart';
+import 'package:janken/game_one/result.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../common/appbar.dart';
+import '../common/backbutton.dart';
 
 
 class AnswerPage extends StatefulWidget {
@@ -103,9 +108,13 @@ class _AnswerPageState extends State<AnswerPage> {
     if(_answer2 == "あいこ、もう一回！") _answer2 = "あいこで・・・";
     else _answer2 = "最初はグー、じゃんけん・・・";
     if(total == 10){
-        Navigator.push(context,
-          MaterialPageRoute(builder: (context) => WinPage(winN: win)),
-        );
+      Navigator.push(context,
+        PageTransition(
+          child: ResultPage(winN: win), //画面遷移先
+          type: PageTransitionType.fade,
+          duration: Duration(milliseconds: 300),//アニメーションの時間
+        ),
+      );
     }
     else {uiWidget();}
   }
@@ -113,11 +122,11 @@ class _AnswerPageState extends State<AnswerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text("100連じゃんけん"),
-        ),
-        body: Container(
+      appBar: CommonAppBar(
+        title: Text('100連じゃんけん'),
+        pop: CustomBackButton(screen: OneMainPage(),), appBar: AppBar(),
+      ),
+      body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('images/mori.jpg'),
@@ -141,7 +150,7 @@ class _AnswerPageState extends State<AnswerPage> {
         chokiImage = Image.asset('images/dora_choki.PNG', height: 250);
         paImage = Image.asset('images/dora_pa.PNG', height: 250);
       };
-      return Text(enemyName, style: TextStyle(fontSize: 40, color: Colors.white),);
+        return Text(enemyName, style: TextStyle(fontSize: 40, color: Colors.white),);
     };
     return <Widget>[
       Row(
@@ -184,7 +193,7 @@ class _AnswerPageState extends State<AnswerPage> {
             visible: !_visible,
             child: GestureDetector(
               onTap: () {
-                _next();
+                  _next();
               },
               child: Container(
                 height: 150,
@@ -205,7 +214,10 @@ class _AnswerPageState extends State<AnswerPage> {
             children: <Widget>[
               RaisedButton(
                 shape: CircleBorder(),
-                onPressed: _guAnswer,
+                onPressed: () {
+                  if(0 <= total && total < 10)
+                    _guAnswer();
+                },
                 child: ClipOval(
                     child: Image(
                       width: 100,
@@ -216,7 +228,10 @@ class _AnswerPageState extends State<AnswerPage> {
               ),
               RaisedButton(
                 shape: CircleBorder(),
-                onPressed: _chokiAnswer,
+                onPressed: () {
+                  if(0 <= total && total < 10)
+                    _chokiAnswer();
+                },
                 child: ClipOval(
                     child: Image(
                       width: 80,
@@ -227,7 +242,10 @@ class _AnswerPageState extends State<AnswerPage> {
               ),
               RaisedButton(
                 shape: CircleBorder(),
-                onPressed: _paAnswer,
+                onPressed: () {
+                  if(0 <= total && total < 10)
+                    _paAnswer();
+                },
                 child: ClipOval(
                     child: Image(
                       width: 70,

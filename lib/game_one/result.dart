@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:janken/game_one/home.dart';
@@ -17,6 +18,7 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
+  final _audio = AudioCache();
   String startNext = "START!!";
   String enemyName = "VS　ドラ";
   String nextEnemy = "kani";
@@ -123,6 +125,7 @@ class _ResultPageState extends State<ResultPage> {
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {
+                  _audio.play('tap.mp3');
                   Navigator.push(context,
                     PageTransition(
                       child: OneMainPage(), //画面遷移先

@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:janken/game_one/result.dart';
 import 'package:janken/main.dart';
@@ -15,6 +16,7 @@ class OneMainPage extends StatefulWidget {
 }
 
 class _OneMainPageState extends State<OneMainPage> {
+  final _audio = AudioCache();
   int N = -1;
 
   @override

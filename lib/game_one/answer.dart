@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -19,6 +20,10 @@ class AnswerPage extends StatefulWidget {
 }
 
 class _AnswerPageState extends State<AnswerPage> {
+  final _audio = AudioCache();
+  final audioPlayer = AudioPlayer();
+  bool isPlaying = false;
+
   String _answer = "ウフフ・・僕に勝てるかな";
   String _answer2 = "";
   bool _visible = false;
@@ -28,9 +33,20 @@ class _AnswerPageState extends State<AnswerPage> {
   String enemyName = "";
   var normalImage, guImage, chokiImage,paImage =  null;
 
+  @override
+  void initState() {
+    super.initState();
+    init();
+    audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+  }
 
+  // 画面起動時に読み込む
+  void init() async {
+    _audio.play('battle.mp3');
+  }
 
   void _guAnswer() {
+    _audio.play('tap.mp3');
     setState(() {
       _visible = !_visible;
       var rand = math.Random();
@@ -54,6 +70,7 @@ class _AnswerPageState extends State<AnswerPage> {
   }
 
   void _chokiAnswer() {
+    _audio.play('tap.mp3');
     setState(() {
       _visible = !_visible;
       var rand = math.Random();
@@ -77,6 +94,7 @@ class _AnswerPageState extends State<AnswerPage> {
   }
 
   void _paAnswer() {
+    _audio.play('tap.mp3');
     setState(() {
       _visible = !_visible;
       var rand = math.Random();
@@ -100,6 +118,12 @@ class _AnswerPageState extends State<AnswerPage> {
   }
 
   void _next() {
+    if(startNext == 'START!!') _audio.play('start.mp3');
+    if(startNext == 'NEXT!!') _audio.play('tap.mp3');
+    if(startNext == 'RESULT!!') {
+      audioPlayer.stop();
+      _audio.play('tap.mp3');
+    }
     if(total != 10 || total != 0) startNext = "NEXT!!";
     setState(() {
       _visible = !_visible;

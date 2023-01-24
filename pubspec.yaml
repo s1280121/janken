@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^3.0.1
   shared_preferences: ^2.0.16
   page_transition: ^2.0.4
+  audioplayers: ^0.19.1
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/
     - images/choki.png
     - images/gu.png
     - images/pa.png

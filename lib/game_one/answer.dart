@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:janken/game_one/home.dart';
 import 'package:janken/game_one/result.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../common/appbar.dart';
-import '../common/backbutton.dart';
+import '../main.dart';
 
 
 class AnswerPage extends StatefulWidget {
@@ -20,9 +18,8 @@ class AnswerPage extends StatefulWidget {
 }
 
 class _AnswerPageState extends State<AnswerPage> {
-  final _audio = AudioCache();
-  final audioPlayer = AudioPlayer();
-  bool isPlaying = false;
+  final player = AudioPlayer();
+  final bgm = AudioPlayer();
 
   String _answer = "ウフフ・・僕に勝てるかな";
   String _answer2 = "";
@@ -36,17 +33,17 @@ class _AnswerPageState extends State<AnswerPage> {
   @override
   void initState() {
     super.initState();
+    bgm.setReleaseMode(ReleaseMode.loop);
     init();
-    audioPlayer.setReleaseMode(ReleaseMode.LOOP);
   }
 
   // 画面起動時に読み込む
   void init() async {
-    _audio.play('battle.mp3');
+    bgm.play(AssetSource('battle.mp3'));
   }
 
   void _guAnswer() {
-    _audio.play('tap.mp3');
+    player.play(AssetSource('tap.mp3'));
     setState(() {
       _visible = !_visible;
       var rand = math.Random();
@@ -70,7 +67,7 @@ class _AnswerPageState extends State<AnswerPage> {
   }
 
   void _chokiAnswer() {
-    _audio.play('tap.mp3');
+    player.play(AssetSource('tap.mp3'));
     setState(() {
       _visible = !_visible;
       var rand = math.Random();
@@ -94,7 +91,7 @@ class _AnswerPageState extends State<AnswerPage> {
   }
 
   void _paAnswer() {
-    _audio.play('tap.mp3');
+    player.play(AssetSource('tap.mp3'));
     setState(() {
       _visible = !_visible;
       var rand = math.Random();
@@ -118,11 +115,11 @@ class _AnswerPageState extends State<AnswerPage> {
   }
 
   void _next() {
-    if(startNext == 'START!!') _audio.play('start.mp3');
-    if(startNext == 'NEXT!!') _audio.play('tap.mp3');
+    if(startNext == 'START!!') player.play(AssetSource('start.mp3'));
+    if(startNext == 'NEXT!!') player.play(AssetSource('tap.mp3'));
     if(startNext == 'RESULT!!') {
-      audioPlayer.stop();
-      _audio.play('tap.mp3');
+      bgm.stop();
+      player.play(AssetSource('tap.mp3'));
     }
     if(total != 10 || total != 0) startNext = "NEXT!!";
     setState(() {
@@ -145,23 +142,46 @@ class _AnswerPageState extends State<AnswerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(
-        title: Text('100連じゃんけん'),
-        pop: CustomBackButton(screen: OneMainPage(),), appBar: AppBar(),
-      ),
-      body: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/mori.jpg'),
-                fit: BoxFit.cover,
-              )
-          ),
-          child: Column(
-                children: uiWidget()
+    return WillPopScope(
+      onWillPop: () async => false,   //戻るボタン無効
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('100連ジャンケン'),
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          automaticallyImplyLeading: false, //戻るボタン非表示
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.home,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                bgm.stop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyApp(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              },
             ),
-          ),
+          ],
+        ),
+        body: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/mori.jpg'),
+                  fit: BoxFit.cover,
+                )
+            ),
+            child: Column(
+                  children: uiWidget()
+              ),
+            ),
 
+      ),
     );
   }
 

@@ -37,7 +37,8 @@ dependencies:
   google_fonts: ^3.0.1
   shared_preferences: ^2.0.16
   page_transition: ^2.0.4
-  audioplayers: ^0.19.1
+#  audioplayers: ^0.19.1
+  audioplayers: 1.1.0
 
 dev_dependencies:
   flutter_test:

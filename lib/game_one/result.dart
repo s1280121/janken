@@ -18,7 +18,8 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  final _audio = AudioCache();
+  final player = AudioPlayer();
+
   String startNext = "START!!";
   String enemyName = "VS　ドラ";
   String nextEnemy = "kani";
@@ -125,7 +126,7 @@ class _ResultPageState extends State<ResultPage> {
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {
-                  _audio.play('tap.mp3');
+                  player.play(AssetSource('tap.mp3'));
                   Navigator.push(context,
                     PageTransition(
                       child: OneMainPage(), //画面遷移先

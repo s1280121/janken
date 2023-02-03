@@ -16,7 +16,9 @@ class OneMainPage extends StatefulWidget {
 }
 
 class _OneMainPageState extends State<OneMainPage> {
-  final _audio = AudioCache();
+  // final _audio = AudioCache();
+  final player = AudioPlayer();
+
   int N = -1;
 
   @override
@@ -49,6 +51,7 @@ class _OneMainPageState extends State<OneMainPage> {
                       onPrimary: Colors.white,
                     ),
                     onPressed: () {
+                      player.play(AssetSource('tap.mp3'));
                       Navigator.push(context,
                         PageTransition(
                           child: ResultPage(winN: N), //画面遷移先
@@ -78,6 +81,7 @@ class _OneMainPageState extends State<OneMainPage> {
                   borderRadius: BorderRadius.circular(60),
                 ),
                 onPressed: () {
+                  player.play(AssetSource('tap.mp3'));
                   Navigator.push(context,
                     PageTransition(
                       child: AnswerPage(title: 'dora'), //画面遷移先

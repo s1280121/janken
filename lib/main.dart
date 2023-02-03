@@ -49,7 +49,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _audio = AudioCache();
+  // final _audio = AudioCache();
+  final player = AudioPlayer();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,8 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
               textColor: Colors.white,
               shape: const CircleBorder(),//丸
               onPressed:() {
+                player.play(AssetSource('tap.mp3'));
                 Navigator.push(context,
-                  PageTransition(
+                    PageTransition(
                     child: OneMainPage(), //画面遷移先
                     type: PageTransitionType.fade,
                     duration: Duration(milliseconds: 300),//アニメーションの時間

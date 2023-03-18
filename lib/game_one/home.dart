@@ -16,22 +16,24 @@ class OneMainPage extends StatefulWidget {
 }
 
 class _OneMainPageState extends State<OneMainPage> {
-  // final _audio = AudioCache();
   final player = AudioPlayer();
 
   int N = -1;
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CommonAppBar(
-        title: Text('100連じゃんけん'),
-        pop: CustomBackButton(screen: MyApp(),), appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('10連じゃんけん'),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        automaticallyImplyLeading: false, //戻るボタン非表示
       ),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images/mori.jpg'),
+              image: AssetImage('assets/images/sea.jpeg'),
               fit: BoxFit.cover,
             )
         ),
@@ -65,11 +67,11 @@ class _OneMainPageState extends State<OneMainPage> {
                 ),
               ],
             ),
-            Text('100連じゃんけん！！',style: TextStyle(fontSize: 20, color: Colors.white),),
-            Text('次々と現れる敵を倒していこう', style: TextStyle(fontSize: 20, color: Colors.white),),
-            SizedBox(height: 20,),
-            Image.asset('images/dora.PNG', height: 400),
-            SizedBox(height: 80),
+            // Text('10連じゃんけん！！',style: TextStyle(fontSize: 20, color: Colors.white),),
+            SizedBox(height: screenSize.height * 0.05),
+            Text('カニくんとじゃんけんしてあげよう！', style: TextStyle(fontSize: 20, color: Colors.white),),
+            Image.asset('assets/images/kani.PNG', height: screenSize.height * 0.4),
+            SizedBox(height: screenSize.height * 0.05),
             SizedBox(
               width: 300,
               child: MaterialButton(
@@ -84,7 +86,7 @@ class _OneMainPageState extends State<OneMainPage> {
                   player.play(AssetSource('tap.mp3'));
                   Navigator.push(context,
                     PageTransition(
-                      child: AnswerPage(title: 'dora'), //画面遷移先
+                      child: AnswerPage(title: 'kani'), //画面遷移先
                       type: PageTransitionType.fade,
                       duration: Duration(milliseconds: 300),//アニメーションの時間
                     ),

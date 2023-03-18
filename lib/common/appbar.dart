@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:janken/game_one/home.dart';
 import 'package:janken/main.dart';
 
 
@@ -17,6 +18,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: title,
       leading: pop,
+      automaticallyImplyLeading: false, //戻るボタン非表示
       backgroundColor: Colors.white,
       centerTitle: true,
       actions: <Widget>[
@@ -29,7 +31,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const MyApp(),
+                builder: (context) => OneMainPage(),
                 fullscreenDialog: true,
               ),
             );

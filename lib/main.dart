@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData.dark(),
-      home: const MyHomePage(),
+      home: OneMainPage(),
     );
   }
 }
@@ -78,39 +78,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               },
-              child: const Text('100連\nじゃんけん', style: TextStyle(fontSize: 30),),
+              child: const Text('10連\nじゃんけん', style: TextStyle(fontSize: 30),),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MaterialButton(
-                  padding: const EdgeInsets.all(30),
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  shape: const CircleBorder(),
-                  onPressed:() {
-                    // Navigator.push(context, MaterialPageRoute(
-                    //   builder: (BuildContext context) => OneMainPage(),
-                    // ),
-                    // );
-                  },
-                  child: const Text('指令\nじゃんけん', style: TextStyle(fontSize: 30),),
-                ),
-                MaterialButton(
-                  padding: const EdgeInsets.all(53),
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  shape: const CircleBorder(),
-                  onPressed:() {
-                    // Navigator.push(context, MaterialPageRoute(
-                    //   builder: (BuildContext context) => OneMainPage(),
-                    // ),
-                    // );
-                  },
-                  child: const Text('グリコ', style: TextStyle(fontSize: 30)),
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     MaterialButton(
+            //       padding: const EdgeInsets.all(30),
+            //       color: Colors.blue,
+            //       textColor: Colors.white,
+            //       shape: const CircleBorder(),
+            //       onPressed:() {
+            //         // Navigator.push(context, MaterialPageRoute(
+            //         //   builder: (BuildContext context) => OneMainPage(),
+            //         // ),
+            //         // );
+            //       },
+            //       child: const Text('指令\nじゃんけん', style: TextStyle(fontSize: 30),),
+            //     ),
+            //     MaterialButton(
+            //       padding: const EdgeInsets.all(53),
+            //       color: Colors.blue,
+            //       textColor: Colors.white,
+            //       shape: const CircleBorder(),
+            //       onPressed:() {
+            //         // Navigator.push(context, MaterialPageRoute(
+            //         //   builder: (BuildContext context) => OneMainPage(),
+            //         // ),
+            //         // );
+            //       },
+            //       child: const Text('グリコ', style: TextStyle(fontSize: 30)),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

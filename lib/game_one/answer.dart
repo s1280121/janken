@@ -18,17 +18,17 @@ class AnswerPage extends StatefulWidget {
 }
 
 class _AnswerPageState extends State<AnswerPage> {
-  final player = AudioPlayer();
-  final bgm = AudioPlayer();
+  final player = AudioPlayer(); //タップ音
+  final bgm = AudioPlayer(); //バトルBGM
 
-  String _answer = "ウフフ・・僕に勝てるかな";
+  String _answer = "僕に勝てるかな？";
   String _answer2 = "";
   bool _visible = false;
   int total = 0;
   int win = 0;
   String startNext = "START!!";
   String enemyName = "";
-  var normalImage, guImage, chokiImage,paImage =  null;
+  var normalImage, guImage, chokiImage, paImage =  null;
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class _AnswerPageState extends State<AnswerPage> {
     setState(() {
       _visible = !_visible;
       var rand = math.Random();
-      if (rand.nextInt(3) == 1) {
+      if (rand.nextInt(3) == 0) {
         _answer = "敵の手はチョキ";
         _answer2 = "あなたの勝ちです";
         win++;
@@ -95,7 +95,7 @@ class _AnswerPageState extends State<AnswerPage> {
     setState(() {
       _visible = !_visible;
       var rand = math.Random();
-      if (rand.nextInt(3) == 1) {
+      if (rand.nextInt(3) == 0) {
         _answer = "敵の手はグー";
         _answer2 = "あなたの勝ちです";
         win++;
@@ -146,33 +146,33 @@ class _AnswerPageState extends State<AnswerPage> {
       onWillPop: () async => false,   //戻るボタン無効
       child: Scaffold(
         appBar: AppBar(
-          title: Text('100連ジャンケン'),
+          title: Text('10連じゃんけん'),
           backgroundColor: Colors.white,
           centerTitle: true,
           automaticallyImplyLeading: false, //戻るボタン非表示
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.home,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                bgm.stop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyApp(),
-                    fullscreenDialog: true,
-                  ),
-                );
-              },
-            ),
-          ],
+          // actions: <Widget>[
+          //   IconButton(
+          //     icon: const Icon(
+          //       Icons.home,
+          //       color: Colors.black,
+          //     ),
+          //     onPressed: () {
+          //       bgm.stop();
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => MyApp(),
+          //           fullscreenDialog: true,
+          //         ),
+          //       );
+          //     },
+          //   ),
+          // ],
         ),
         body: Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/mori.jpg'),
+                  image: AssetImage('assets/images/sea.jpeg'),
                   fit: BoxFit.cover,
                 )
             ),
@@ -180,31 +180,31 @@ class _AnswerPageState extends State<AnswerPage> {
                   children: uiWidget()
               ),
             ),
-
       ),
     );
   }
 
   List<Widget> uiWidget() {
+    var screenSize = MediaQuery.of(context).size;
     Widget ifEnemy() {
-      if (widget.title == "dora") {
-        enemyName = "VS　ドラ";
-        normalImage = Image.asset('images/dora.PNG', height: 250);
-        guImage = Image.asset('images/dora_gu.PNG', height: 250);
-        chokiImage = Image.asset('images/dora_choki.PNG', height: 250);
-        paImage = Image.asset('images/dora_pa.PNG', height: 250);
+      if (widget.title == "kani") {
+        enemyName = "VS　カニ太郎";
+        normalImage = Image.asset('assets/images/kani.PNG', height: screenSize.height * 0.35);
+        guImage = Image.asset('assets/images/kani_gu.PNG', height: screenSize.height * 0.35);
+        chokiImage = Image.asset('assets/images/kani_choki.PNG', height: screenSize.height * 0.35);
+        paImage = Image.asset('assets/images/kani_pa.PNG', height: screenSize.height * 0.35);
       };
-        return Text(enemyName, style: TextStyle(fontSize: 40, color: Colors.white),);
+        return Text(enemyName, style: TextStyle(fontSize: 30, color: Colors.white));
     };
     return <Widget>[
       Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text('$win / $total', style: TextStyle(fontSize: 50, color: Colors.white),),
+            Text('$win / $total', style: TextStyle(fontSize: 40, color: Colors.white),),
           ]
       ),
       ifEnemy(),
-      if (_answer == "ウフフ・・僕に勝てるかな" || _answer == "") normalImage,
+      if (_answer == "僕に勝てるかな？" || _answer == "") normalImage,
       if (_answer == "敵の手はグー") guImage,
       if (_answer == "敵の手はチョキ") chokiImage,
       if (_answer == "敵の手はパー") paImage,
@@ -213,88 +213,109 @@ class _AnswerPageState extends State<AnswerPage> {
         color: Colors.white,
         fontSize: 30,
       ),),
-      Text(_answer2, style: TextStyle(fontSize: 20, color: Colors.white),),
+      Text(_answer2, style: TextStyle(fontSize: 25, color: Colors.white),),
       Spacer(),
       if(_visible == false)
         if(startNext == 'NEXT!!')
-        Visibility(
-          visible: !_visible,
-          child: GestureDetector(
-            onTap: () {
-              _next();
-            },
-            child: Container(
-              height: 150,
-              width: double.infinity,
-              color: Colors.white,
-              child: Center(child: Text(startNext, style: TextStyle(fontSize: 40),)),
+        Container(
+          height: screenSize.height * 0.2,
+          alignment: Alignment.bottomCenter,
+          child: Visibility(
+            visible: !_visible,
+            child: GestureDetector(
+              onTap: () {
+                _next();
+              },
+              child: Container(
+                height: 150,
+                width: double.infinity,
+                color: Colors.white,
+                child: Center(child: Text(startNext, style: TextStyle(fontSize: 50),)),
+              ),
             ),
           ),
         ),
       if(_visible == false)
         if(startNext == 'START!!' || startNext == 'RESULT!!')
-          Visibility(
-            visible: !_visible,
-            child: GestureDetector(
-              onTap: () {
-                  _next();
-              },
-              child: Container(
-                height: 150,
-                width: double.infinity,
-                color: Colors.orange,
-                child: Center(child: Text(startNext, style: TextStyle(fontSize: 40),)),
+          Container(
+            height: screenSize.height * 0.2,
+            alignment: Alignment.bottomCenter,
+            child: Visibility(
+              visible: !_visible,
+              child: GestureDetector(
+                onTap: () {
+                    _next();
+                },
+                child: Container(
+                  height: 150,
+                  width: double.infinity,
+                  color: Colors.orange,
+                  child: Center(child: Text(startNext, style: TextStyle(fontSize: 50),)),
+                ),
               ),
             ),
           ),
       if(_visible == true)
       Container(
-        height: 150,
+        height: screenSize.height * 0.2,
+        alignment: Alignment.center,
         color: Colors.grey,
         child: Visibility(
           visible: _visible,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              RaisedButton(
-                shape: CircleBorder(),
+              ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<CircleBorder>(
+                    CircleBorder(),
+                  ),
+                ),
                 onPressed: () {
                   if(0 <= total && total < 10)
                     _guAnswer();
                 },
                 child: ClipOval(
                     child: Image(
-                      width: 100,
-                      image: AssetImage('images/gu.png'),
-                      fit: BoxFit.contain,
+                      width: screenSize.width * 0.25,
+                      image: AssetImage('assets/images/gu.png'),
+                      fit: BoxFit.fitWidth,
                     )
                 ),
               ),
-              RaisedButton(
-                shape: CircleBorder(),
+              ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<CircleBorder>(
+                    CircleBorder(),
+                  ),
+                ),
                 onPressed: () {
                   if(0 <= total && total < 10)
                     _chokiAnswer();
                 },
                 child: ClipOval(
                     child: Image(
-                      width: 80,
-                      image: AssetImage('images/choki.png'),
-                      fit: BoxFit.contain,
+                      width: screenSize.width * 0.23,
+                      image: AssetImage('assets/images/choki.png'),
+                      fit: BoxFit.fitWidth,
                     )
                 ),
               ),
-              RaisedButton(
-                shape: CircleBorder(),
+              ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<CircleBorder>(
+                    CircleBorder(),
+                  ),
+                ),
                 onPressed: () {
                   if(0 <= total && total < 10)
                     _paAnswer();
                 },
                 child: ClipOval(
                     child: Image(
-                      width: 70,
-                      image: AssetImage('images/pa.png'),
-                      fit: BoxFit.contain,
+                      width: screenSize.width * 0.26,
+                      image: AssetImage('assets/images/pa.png'),
+                      fit: BoxFit.fitWidth,
                     )
                 ),
               ),

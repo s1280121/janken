@@ -1,16 +1,25 @@
-# janken
+# じゃんカニ
+3/23リリース!!(androidのみ)  
+https://play.google.com/store/apps/details?id=com.arample.janken
 
-A new Flutter project.
 
-## Getting Started
+#### 概要
+今までチョキしか出すことができなかったカニ太郎は、数年の修行を経て...
+さあ君も成長したカニ太郎とじゃんけんしてみよう！
 
-This project is a starting point for a Flutter application.
+## 開発環境
+### 対象OS
+iOS/Android
+### 言語
+Dart(Flutter)
+### 開発人数
+1人
 
-A few resources to get you started if this is your first Flutter project:
+### 役割
+企画・コーディング
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 背景
+授業で作った簡単なじゃんけんアプリを改良してリリースしました。まだ最低限の機能しか備わってないため、敵の種類やゲームのモード(グリコ / 指示通りじゃんけん)を増やしていく予定です。
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### コーディングについて
+敵の種類が増えても問題ないようにkeyを設定したり、shared preferencesを使い最高記録を記録できるように工夫しました。じゃんけん自体のアルゴリズムは調べたものを参考にしたが、敵の画像やセリフを状態ごとに変えるなど、沢山考えなければいけないことがあり大変だった。しかし、実際にリリースまで経験してみてとても良い経験になった。

@@ -1,5 +1,6 @@
 # じゃんカニ
-https://user-images.githubusercontent.com/87113276/226977863-dd9bf72c-96b9-4098-bac9-1c6549fe198b.mov
+https://user-images.githubusercontent.com/87113276/226977863-dd9bf72c-96b9-4098-bac9-1c6549fe198b.mov  
+
 3/23リリース!!(androidのみ)  
 https://play.google.com/store/apps/details?id=com.arample.janken
 
